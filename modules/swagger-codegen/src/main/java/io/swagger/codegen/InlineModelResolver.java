@@ -246,6 +246,7 @@ public class InlineModelResolver {
 
                 ObjectProperty op = (ObjectProperty) property;
                 Model model = modelFromProperty(op, modelName);
+                addXFlattened(model, path);
 
                 String existing = matchGenerated(model);
 
