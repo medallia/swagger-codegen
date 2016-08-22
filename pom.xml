@@ -5,7 +5,7 @@
     <artifactId>swagger-codegen-project</artifactId>
     <packaging>pom</packaging>
     <name>com.medallia:swagger-codegen-project</name>
-    <version>2.2.0-8</version>
+    <version>2.2.0-9</version>
    
     <url>github.com/medallia/swagger-codegen</url>
     <description>Medallia fork for Swagger Codegen</description>
