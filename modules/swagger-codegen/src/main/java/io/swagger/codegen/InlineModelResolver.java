@@ -267,6 +267,7 @@ public class InlineModelResolver {
                         flattenProperties(op.getProperties(), path);
                         String modelName = uniqueName(path + "_" + key);
                         Model innerModel = modelFromProperty(op, modelName);
+                        addXFlattened(innerModel, path);
                         String existing = matchGenerated(innerModel);
                         if (existing != null) {
                             ap.setItems(new RefProperty(existing));
@@ -287,6 +288,7 @@ public class InlineModelResolver {
                         flattenProperties(op.getProperties(), path);
                         String modelName = uniqueName(path + "_" + key);
                         Model innerModel = modelFromProperty(op, modelName);
+                        addXFlattened(innerModel, path);
                         String existing = matchGenerated(innerModel);
                         if (existing != null) {
                             mp.setAdditionalProperties(new RefProperty(existing));
@@ -307,6 +309,13 @@ public class InlineModelResolver {
         for (String key : modelsToAdd.keySet()) {
             swagger.addDefinition(key, modelsToAdd.get(key));
             this.addedModels.put(key, modelsToAdd.get(key));
+        }
+    }
+
+    private void addXFlattened(Model model, String parentModelName) {
+        Map<String, Object> vendorExtensions = model.getVendorExtensions();
+        if (vendorExtensions != null) {
+            vendorExtensions.put("x-flattened", parentModelName);
         }
     }
 
