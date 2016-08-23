@@ -50,6 +50,11 @@ public class PhpClientCodegen extends DefaultCodegen implements CodegenConfig {
     public PhpClientCodegen() {
         super();
 
+        // clear import mapping (from default generator) as php does not use it
+        // at the moment
+        importMapping.clear();
+        
+
         supportsInheritance = true;
         outputFolder = "generated-code" + File.separator + "php";
         modelTemplateFiles.put("model.mustache", ".php");
@@ -639,6 +644,9 @@ public class PhpClientCodegen extends DefaultCodegen implements CodegenConfig {
     @Override
     public String toEnumName(CodegenProperty property) {
         String enumName = underscore(toModelName(property.name)).toUpperCase();
+
+        // remove [] for array or map of enum
+        enumName = enumName.replace("[]", "");
 
         if (enumName.matches("\\d.*")) { // starts with number
             return "_" + enumName;
