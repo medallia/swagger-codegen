@@ -251,9 +251,13 @@ public class InlineModelResolver {
                 String existing = matchGenerated(model);
 
                 if (existing != null) {
-                    propsToUpdate.put(key, new RefProperty(existing));
+                	RefProperty rp = new RefProperty(existing);
+                	rp.setReadOnly(op.getReadOnly());
+                    propsToUpdate.put(key, rp);
                 } else {
-                    propsToUpdate.put(key, new RefProperty(modelName));
+                	RefProperty rp = new RefProperty(modelName);
+                	rp.setReadOnly(op.getReadOnly());
+                    propsToUpdate.put(key, rp);
                     modelsToAdd.put(modelName, model);
                     addGenerated(modelName, model);
                     swagger.addDefinition(modelName, model);
