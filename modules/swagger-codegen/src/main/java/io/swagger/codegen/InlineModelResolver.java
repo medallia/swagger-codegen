@@ -251,13 +251,9 @@ public class InlineModelResolver {
                 String existing = matchGenerated(model);
 
                 if (existing != null) {
-                	RefProperty rp = new RefProperty(existing);
-                	rp.setReadOnly(op.getReadOnly());
-                    propsToUpdate.put(key, rp);
+                	propsToUpdate.put(key, new RefProperty(existing));
                 } else {
-                	RefProperty rp = new RefProperty(modelName);
-                	rp.setReadOnly(op.getReadOnly());
-                    propsToUpdate.put(key, rp);
+                	propsToUpdate.put(key, new RefProperty(modelName));
                     modelsToAdd.put(modelName, model);
                     addGenerated(modelName, model);
                     swagger.addDefinition(modelName, model);
@@ -365,6 +361,10 @@ public class InlineModelResolver {
         if (properties != null) {
             flattenProperties(properties, path);
             model.setProperties(properties);
+        }
+        
+        if (object.getReadOnly() != null && object.getReadOnly()) {
+        	model.setVendorExtension("x-read-only", true);
         }
 
         return model;
