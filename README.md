@@ -13,7 +13,64 @@
 :warning: If the OpenAPI/Swagger spec is obtained from an untrusted source, please make sure you've reviewed the spec before using Swagger Codegen to generate the API client, server stub or documentation as [code injection](https://en.wikipedia.org/wiki/Code_injection) may occur :warning:
 
 ## Collaboration guidelines for Medallia's fork
-[Read here](https://github.medallia.com/medallia/api-codegen#collaboration-guidelines).
+
+This repo uses [git-flow](https://github.com/nvie/gitflow). [Install it](https://github.com/nvie/gitflow/wiki/Installation) and then add these sections to `.git/config`:
+
+	[gitflow "branch"]
+		master = medallia
+		develop = develop
+	[gitflow "prefix"]
+		feature = feature/
+		release = release/
+		hotfix = hotfix/
+		support = support/
+		versiontag = v
+
+### Features
+
+* To start developing a feature, use:
+
+        git flow feature start <name>
+
+    This creates a branch called `feature/<name>` based on `develop`, and switches to it.
+
+* When the feature is ready for review, create a pull request on GitHub.
+
+* When the review is done, you can merge the pull request (it will be merged into `develop`) and delete the feature branch (thus we won't need to run the `feature finish` command).
+
+* Then create a release branch:
+
+        git flow release start <version>
+
+    This creates a branch called `release/<version>` based on `develop`.
+
+* Commit the necessary last minute changes (e.g. bump the version in the source code), and then:
+
+        git flow release finish <version>
+
+    This merges the release branch into `master` and `develop`, tags the new version, and then deletes the release branch.
+
+* Then push everything:
+
+        git push origin medallia
+        git push origin develop
+        git push origin --tags
+
+### Hotfixes
+
+* If there is a bug in the `master` branch that needs to be quickly fixed without review, just create a hotfix branch:
+
+        git flow hotfix start <version>
+
+    This creates a branch called `hotfix/<version>` based on `master`, and switches to it.
+
+* When you are ready:
+
+        git flow hotfix finish <version>
+
+    This is analogous to the `release finish` command.
+
+* Don't forget to push everything.
 
 ## Overview
 This is the swagger codegen project, which allows generation of API client libraries, server stubs and documentation automatically given an [OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification).
