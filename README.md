@@ -1,3 +1,5 @@
+# WARNING: Don't use this repo. 
+# Use https://github.medallia.com/medallia/swagger-codegen instead
 # Swagger Code Generator
 
 [![Build Status](https://img.shields.io/travis/swagger-api/swagger-codegen.svg?label=Petstore%20Integration%20Test)](https://travis-ci.org/swagger-api/swagger-codegen)
